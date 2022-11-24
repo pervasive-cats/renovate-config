@@ -1,0 +1,40 @@
+{
+  "assignAutomerge": true,
+  "automergeStrategy": "rebase",
+  "baseBranches": ["main", "beta"],
+  "configMigration": true,
+  "extends": [
+    "config:base", 
+    ":assignAndReview(cake-lier)", 
+    ":automergeAll",
+    ":pinDependencies", 
+    ":prNotPending", 
+    ":semanticCommits",
+    ":separateMultipleMajorReleases",
+    ":separatePatchReleases",
+    ":rebaseStalePrs"
+  ],
+  "ignorePresets": [
+    ":semanticPrefixFixDepsChoreOthers", 
+    ":autodetectPinVersions"
+  ],
+  "git-submodules": {
+    "enabled": true
+  },
+  "includeForks": true,
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Updates to GitHub Actions should be tagged as 'ci'",
+      "matchPaths": [".github/workflows/*.yml", ".github/workflows/*.yaml", "package.json", "package-lock.json", "renovate.json"],
+      "semanticCommitType": "ci"
+    },
+    {
+      "description": "Updates to build automation files should be tagged as 'build'",
+      "matchPaths": ["build.sbt", "project/plugins.sbt", "project/Dependencies.scala"],
+      "semanticCommitType": "build"
+    }
+  ],
+  "platformCommit": true,
+  "prNotPendingHours": 2
+}
